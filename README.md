@@ -1,53 +1,26 @@
+# Breath Control for Space Engineers
 # Space Engineers Client Plugin Template
 
+See base template and requirements to build here:
 [Server/Client version of the template](https://github.com/sepluginloader/PluginTemplate)
 
-## Prerequisites
+## Description
 
-- [Space Engineers](https://store.steampowered.com/app/244850/Space_Engineers/)
-- [Python 3.x](https://python.org) (tested with 3.9)
-- [Plugin Loader](https://github.com/sepluginloader/PluginLoader/)
-- [.NET Framework 4.8.1 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net481)
+The heavy breathing noise when using realistic sound in Space Engineers is very loud. It also plays VERY often. For a long duration.
+I hate it. I am sure you do too, so I slapped this together to make it stop.
 
-## Create your plugin project
+## Installation
 
-1. Click on **Use this template** (top right corner on GitHub) and follow the wizard to create your repository
-2. Clone your repository to have a local working copy
-3. Run `setup.py`, enter the name of your plugin project in `CapitalizedWords` format
-4. Let `setup.py` auto-detect your install location or fill it in manually
-5. Open the solution in Visual Studio or Rider
-6. Make a test build, the plugin's DLL should be deployed (see the build log for the path)
-7. Test that the empty plugin can be enabled in Plugin Loader
-8. Replace the contents of this file with the description of your plugin
-9. Follow the TODO comments in the source code
+At some point this should be on plugin hub. Until then, you can install this plugin by dragging the associated DLL to:
+YourSteamLibraryLocation\common\SpaceEngineers\Bin64\Plugins\Local
 
-## Remarks
+![File location](where_to_put.png)
 
-### Plugin configuration
+### Info
 
-You can have a nice configuration dialog with little effort in the game client.
-Customize the `Config` class in the `ClientPlugin` project, just follow the examples.
-It supports many different data types, including key binding. Once you have more
-options than can fit on the screen the dialog will have a vertical scrollbar.
-
-![Example config dialog](Doc/ConfigDialogExample.png "Example config dialog")
-
-### Debugging
-
-- Always use a debug build if you want to set breakpoints and see variable values.
-- A debug build defines `DEBUG`, so you can add conditional code in `#if DEBUG` blocks.
-- While debugging a specific target unload the other two. It prevents the IDE to be confused.
-- If breakpoints do not "stick" or do not work, then make sure that:
-  - Other projects are unloaded, only the debugged one and Shared are loaded.
-  - Debugger is attached to the running process.
-  - You are debugging the code which is running (no code changes made since the build).
-
-### Troubleshooting
-
-- If the IDE looks confused, then restarting it and the debugged game usually works.
-- If the restart did not work, then try to delete caches used by your IDE and restart.
-- If your build cannot deploy (just runs in a loop), then something locks the DLL file.
-- Look for running game processes (maybe stuck running in the background) and kill them.
+This plugin can be adjusted in-game through the plugin menu when you press escape.
+![Config screen](config_screen.png)
+![Plugin Menu](menu_preview.png)
 
 ### Release
 
