@@ -1,5 +1,5 @@
-﻿using ClientPlugin.Settings.Elements;
-using ClientPlugin.Settings.Layouts;
+﻿using BreathControl.Settings.Elements;
+using BreathControl.Settings.Layouts;
 using Sandbox.Graphics.GUI;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 
-namespace ClientPlugin.Settings
+namespace BreathControl.Settings
 {
     internal class AttributeInfo
     {

@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ClientPlugin.Settings.Elements;
+using BreathControl.Settings.Elements;
 using VRageMath;
 
-namespace ClientPlugin.Settings.Layouts
+namespace BreathControl.Settings.Layouts
 {
     internal class None : Layout
     {

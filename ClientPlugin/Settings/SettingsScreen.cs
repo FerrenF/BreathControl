@@ -2,10 +2,10 @@
 using Sandbox.Graphics.GUI;
 using System;
 using System.Collections.Generic;
-using ClientPlugin.Settings.Elements;
+using BreathControl.Settings.Elements;
 using VRageMath;
 
-namespace ClientPlugin.Settings
+namespace BreathControl.Settings
 {
     internal class SettingsScreen : MyGuiScreenBase
     {

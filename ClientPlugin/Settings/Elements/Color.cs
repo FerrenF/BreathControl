@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using VRage.Game;
 using VRageMath;
 
-namespace ClientPlugin.Settings.Elements
+namespace BreathControl.Settings.Elements
 {
     internal class ColorAttribute : Attribute, IElement
     {

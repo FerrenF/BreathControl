@@ -1,5 +1,5 @@
-using ClientPlugin.Settings;
-using ClientPlugin.Settings.Elements;
+using BreathControl.Settings;
+using BreathControl.Settings.Elements;
 using Sandbox.Graphics.GUI;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,108 +7,46 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using VRage.Input;
 using VRageMath;
+using Sandbox.Game.Entities.Character;
 
-
-namespace ClientPlugin
+namespace BreathControl
 {
-    public enum ExampleEnum
-    {
-        FirstAlpha,
-        SecondBeta,
-        ThirdGamma,
-        AndTheDelta,
-        Epsilon
-    }
 
     public class Config : INotifyPropertyChanged
     {
         #region Options
 
         // TODO: Define your configuration options and their default values
-        private bool toggle = true;
-        private int integer = 2;
-        private float number = 0.1f;
-        private string text = "Default Text";
-        private ExampleEnum dropdown = ExampleEnum.FirstAlpha;
-        private Color color = Color.Cyan;
-        private Color colorWithAlpha = new Color(0.8f, 0.6f, 0.2f, 0.5f);
-        private Binding keybind = new Binding(MyKeys.None);
+        private bool BreathToggleVal = true;
+        private float BreathVolumeMultVal = 0.1f;
 
         #endregion
 
         #region User interface
 
         // TODO: Settings dialog title
-        public readonly string Title = "Config Demo";
+        public readonly string Title = "Breath Control Options";
 
         // TODO: Settings dialog controls, one property for each configuration option
 
-        [Checkbox(description: "Checkbox Tooltip")]
-        public bool Toggle
+        [Checkbox(label: "Heavy Breath Sounds", description: "Enable or disable the character's heavy breath noises.")]
+        public bool BreathToggle
         {
-            get => toggle;
-            set => SetField(ref toggle, value);
+            get => BreathToggleVal;
+            set => SetField(ref BreathToggleVal, value);
         }
 
-        [Slider(-1f, 10f, 1f, SliderAttribute.SliderType.Integer, description: "Integer Slider Tooltip")]
-        public int Integer
+        [Slider(0f, 2f, 0.5f, SliderAttribute.SliderType.Float, label:"Breath Volume" , description: "Set a multiplier for the character's heavy breath volume.")]
+        public float BreathVolumeMult
         {
-            get => integer;
-            set => SetField(ref integer, value);
+            get => BreathVolumeMultVal;
+            set => SetField(ref BreathVolumeMultVal, value);
         }
 
-        [Slider(-5f, 4.5f, 0.5f, SliderAttribute.SliderType.Float, description: "Float Slider Tooltip")]
-        public float Number
-        {
-            get => number;
-            set => SetField(ref number, value);
-        }
-
-        [Textbox(description: "Textbox Tooltip")]
-        public string Text
-        {
-            get => text;
-            set => SetField(ref text, value);
-        }
-
-        [Dropdown(description: "Dropdown Tooltip")]
-        public ExampleEnum Dropdown
-        {
-            get => dropdown;
-            set => SetField(ref dropdown, value);
-        }
-
-        [Color(description: "RGB color")]
-        public Color Color
-        {
-            get => color;
-            set => SetField(ref color, value);
-        }
-
-        [Color(hasAlpha: true, description: "RGBA color")]
-        public Color ColorWithAlpha
-        {
-            get => colorWithAlpha;
-            set => SetField(ref colorWithAlpha, value);
-        }
-
-        [Keybind(description: "Keybind Tooltip - Unbind by right clicking the button")]
-        public Binding Keybind
-        {
-            get => keybind;
-            set => SetField(ref keybind, value);
-        }
-
-        [Button(description: "Button Tooltip")]
+        [Button(label: "Save", description: "Save breath settings.")]
         public void Button()
-        {
-            MyGuiSandbox.AddScreen(MyGuiSandbox.CreateMessageBox(
-                MyMessageBoxStyleEnum.Info,
-                buttonType: MyMessageBoxButtonsType.OK,
-                messageText: new StringBuilder("You clicked me!"),
-                messageCaption: new StringBuilder("Custom Button Function"),
-                size: new Vector2(0.6f, 0.5f)
-            ));
+        {    
+            // We want to make these changes by accessing MyCharacterBreath through MyCharacter in Sandbox.Game.Entities.Character
         }
 
         #endregion

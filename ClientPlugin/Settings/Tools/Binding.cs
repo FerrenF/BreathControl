@@ -1,6 +1,6 @@
 using VRage.Input;
 
-namespace ClientPlugin.Settings.Elements
+namespace BreathControl.Settings.Elements
 {
     public struct Binding
     {
