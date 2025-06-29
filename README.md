@@ -15,6 +15,18 @@ YourSteamLibraryLocation\common\SpaceEngineers\Bin64\Plugins\Local  (See Below)
 
 ![File location](where_to_put.png)
 
+You may need to ensure that <LocalFolderPlugins /> is set in plugin loader's config.xml:  
+SpaceEngineers\Bin64\Plugins\config.xml  
+```
+<PluginConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Plugins>
+   ...
+  </Plugins>
+  <LocalFolderPlugins /> <- this must be present
+  <Profiles />
+  <PluginSettings>
+```
+
 ### Info
 
 This plugin can be adjusted in-game through the plugin menu when you press escape.  
