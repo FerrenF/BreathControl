@@ -13,7 +13,7 @@ namespace BreathControl.Settings.Layouts
         private MyGuiControlParent Parent;
         private MyGuiControlScrollablePanel ScrollPanel;
 
-        public override Vector2 SettingsPanelSize => new Vector2(0.5f, 0.7f);
+        public override Vector2 SettingsPanelSize => new Vector2(0.5f, 0.35f);
         private const float ElementPadding = 0.01f;
 
         public Simple(Func<List<List<Control>>> getControls) : base(getControls) { }

@@ -5,18 +5,9 @@ using BreathControl.Settings.Layouts;
 using HarmonyLib;
 using Sandbox.Graphics.GUI;
 using VRage.Plugins;
-using Sandbox.Game.World;
-using VRage.Data.Audio;
 using Sandbox.Game.Entities.Character;
-using Sandbox.Game.Entities;
 using VRage.Audio;
-using VRage.Utils;
-using System.Text;
-using VRageMath;
-using VRage.Game;
-using VRage;
-using Sandbox.Definitions;
-using Sandbox;
+using Sandbox.Game.Entities;
 
 namespace BreathControl
 {
@@ -41,16 +32,18 @@ namespace BreathControl
         {
             Instance = this;
             Instance.settingsGenerator = new SettingsGenerator();
-
             
             // TODO: Put your one time initialization code here.
             Harmony harmony = new Harmony(Name);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-   
-            Config.Current.PropertyChanged += Instance.Current_PropertyChanged;
+            
+            Config.Current.PropertyChanged += Instance.CurrentConfig_PropertyChanged;
+            Instance.ApplyConfig(Config.Current.BreathVolumeMult, Config.Current.BreathToggle);
         }
 
-        private void Current_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        // Even though it 'applies' the config to the current session, it does not save unless the user hits 'apply' on the plugin menu.
+
+        private void CurrentConfig_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             ApplyConfig(Config.Current.BreathVolumeMult, Config.Current.BreathToggle);   
         }
@@ -60,24 +53,30 @@ namespace BreathControl
             Instance = null;
         }
 
+        private static bool isinit_breath = false;
         public void UpdateBreathSounds(MyCharacterBreath _this)
         {
-            if (!MySandboxGame.IsGameReady || _this == null)
-            {
-                return;
-            }
-
             IMySourceVoice voice = (IMySourceVoice)typeof(MyCharacterBreath).GetField("m_sound", BindingFlags.NonPublic | BindingFlags.Instance).GetValueDirect(__makeref(_this));
-            if (voice != null)
-            {
-                voice.VolumeMultiplier = BreathControlPlugin.breathMultiplier * (BreathControlPlugin.enableBreath ? 1 : 0);
+            
+            if (voice != null){
+                voice.VolumeMultiplier = breathMultiplier * (enableBreath ? 1 : 0);
+            }
+            else if(voice == null && Sandbox.Game.World.MySession.Static.Ready && !isinit_breath) {
+                isinit_breath = true;
+
+                MyCharacter character = (MyCharacter)typeof(MyCharacterBreath).GetField("m_character", BindingFlags.NonPublic | BindingFlags.Instance).GetValueDirect(__makeref(_this));
+                MySoundPair m_breathHeavy = new MySoundPair(string.IsNullOrEmpty(character.Definition.BreathHeavySoundName) ? BREATH_HEAVY : character.Definition.BreathHeavySoundName);
+                var PlaySndMethod = typeof(MyCharacterBreath).GetMethod("PlaySound", BindingFlags.NonPublic | BindingFlags.Instance);
+
+                PlaySndMethod.Invoke(_this, new object[] { m_breathHeavy.SoundId, true });
+
+                voice = (IMySourceVoice)typeof(MyCharacterBreath).GetField("m_sound", BindingFlags.NonPublic | BindingFlags.Instance).GetValueDirect(__makeref(_this));
+                if (voice != null){
+                    voice.VolumeMultiplier = breathMultiplier * (enableBreath ? 1 : 0);
+                }
             }
         }
 
-        private static void PlaySound(MyCueId soundId, bool useCrossfade)
-        {
-           MyAudio.Static.PlaySound(soundId);
-        }
 
         // ReSharper disable once UnusedMember.Global
         public void OpenConfigDialog()
@@ -91,10 +90,10 @@ namespace BreathControl
             BreathControlPlugin.breathMultiplier = breathMultiplier;
             BreathControlPlugin.enableBreath = enableBreath;            
         }
-
+       
         public void Update()
         {
-           // required
+           // required interface method
         }
     }
 

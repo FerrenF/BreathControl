@@ -29,24 +29,18 @@ namespace BreathControl
 
         // TODO: Settings dialog controls, one property for each configuration option
 
-        [Checkbox(label: "Heavy Breath Sounds", description: "Enable or disable the character's heavy breath noises.")]
+        [Checkbox(label: "Heavy Breathing", description: "Enable or disable the character's heavy breathing noises.")]
         public bool BreathToggle
         {
             get => BreathToggleVal;
             set => SetField(ref BreathToggleVal, value);
         }
 
-        [Slider(0f, 2f, 0.5f, SliderAttribute.SliderType.Float, label:"Breath Volume" , description: "Set a multiplier for the character's heavy breath volume.")]
+        [Slider(0f, 2f, 0.5f, SliderAttribute.SliderType.Float, label:"Breathing Volume" , description: "Set a multiplier for the character's heavy breathing volume.")]
         public float BreathVolumeMult
         {
             get => BreathVolumeMultVal;
             set => SetField(ref BreathVolumeMultVal, value);
-        }
-
-        [Button(label: "Save", description: "Save breath settings.")]
-        public void Button()
-        {    
-            // We want to make these changes by accessing MyCharacterBreath through MyCharacter in Sandbox.Game.Entities.Character
         }
 
         #endregion
